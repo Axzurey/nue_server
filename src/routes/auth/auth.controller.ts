@@ -2,10 +2,18 @@ import { Body, Controller, Get, Post, Req, Res } from "@nestjs/common";
 import { authService } from "./auth.service";
 import { Request, Response } from "express";
 import { userSignupInterface, userSignupSchema } from "src/server/validation";
+import nenv from "src/shared/nenv";
 
 @Controller('auth')
 export class authController {
     constructor(private readonly authService: authService) {}
+
+    @Post('test')
+    test() {
+        console.log('lets go')
+        nenv.log(new TypeError('hello'))
+    }
+
 
     @Post('register')
     async register(@Res() response: Response, @Body() information: userSignupInterface) {
