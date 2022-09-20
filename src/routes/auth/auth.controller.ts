@@ -9,17 +9,29 @@ export class authController {
 
     @Post('register')
     async register(@Res() response: Response, @Body() information: userSignupInterface) {
-        let isInfoValid = userSignupSchema.isValidSync(information);
-        
-        if (isInfoValid) {
-            this.authService.registerUser(information);
-        }
-        else {
-            response.status(401).send()
-        }
+        await userSignupSchema.validate(information).then(async () => {
+            let [res, msg, pointOfError] = await this.authService.registerUser(information);
+
+            if (res) {
+                return response.status(200).send('OK')
+            }
+            else {
+                return response.status(400).send({
+                    pointOfError: pointOfError,
+                    msg: msg,
+                })
+            }
+        }).catch((e) => {
+            if (e.name === "ValidationError") {
+                return response.status(400).send({
+                    pointOfError: e.path,
+                    msg: e.errors[0]
+                })
+            }
+        })
     }
 
-    @Get('login')
+    @Post('login')
     async login(@Req() request: Request) {
         
     }
