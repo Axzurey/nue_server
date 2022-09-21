@@ -1,7 +1,7 @@
-import { Body, Controller, Get, Post, Req, Res } from "@nestjs/common";
+import { Body, Controller, Get, Post, Req, Res, Session } from "@nestjs/common";
 import { authService } from "./auth.service";
 import { Request, Response } from "express";
-import { userSignupInterface, userSignupSchema } from "src/server/validation";
+import { loginOptions, userSignupInterface, userSignupSchema } from "src/server/validation";
 import nenv from "src/shared/nenv";
 
 @Controller('auth')
@@ -40,7 +40,11 @@ export class authController {
     }
 
     @Post('login')
-    async login(@Req() request: Request) {
-        
+    async login(@Session() session: Record<string, any>, @Req() request: Request, @Body() information: loginOptions) {
+        let [res, msg, pointOfError] = await this.authService.signInUser(information);
+
+        if (res) {
+            session['session'] = msg;
+        }
     }
 }
