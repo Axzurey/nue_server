@@ -14,7 +14,6 @@ export class authController {
         nenv.log(new TypeError('hello'))
     }
 
-
     @Post('register')
     async register(@Res() response: Response, @Body() information: userSignupInterface) {
         await userSignupSchema.validate(information).then(async () => {

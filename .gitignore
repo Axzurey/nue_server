@@ -2,6 +2,9 @@
 /dist
 /node_modules
 
+# no peeky!
+.env
+
 # Logs
 logs
 *.log

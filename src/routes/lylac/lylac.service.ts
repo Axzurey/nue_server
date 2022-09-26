@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { user } from "src/server/mongo/userSchema";
 
 @Injectable()
-export class nueplayService {
+export class lylacService {
     constructor(@InjectModel(user.name) private userModel: Model<user>) {}
 
     getYoutubeVideoData() {
