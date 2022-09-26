@@ -7,7 +7,7 @@ import { user } from "src/server/mongo/userSchema";
 export class lylacService {
     constructor(@InjectModel(user.name) private userModel: Model<user>) {}
 
-    getYoutubeVideoData() {
+    createYoutubePlaylistForUser() {
         
     }
 }

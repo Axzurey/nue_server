@@ -43,7 +43,7 @@ export class authController {
         let [res, msg, pointOfError] = await this.authService.signInUser(information);
 
         if (res) {
-            session['session'] = msg;
+            session['nueToken'] = msg;
         }
     }
 }
